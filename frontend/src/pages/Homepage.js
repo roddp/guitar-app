@@ -2,12 +2,9 @@ import React, { useContext, useEffect, useReducer, useState } from 'react'
 import ProductCard from '../components/ProductCard';
 import axios from 'axios'
 import * as actions from '../constants/ProductConst'
-import * as CartActions from '../constants/CartConst'
-import logger from 'use-reducer-logger'
 import { Row, Col } from 'react-bootstrap'
 import { Helmet } from 'react-helmet-async';
 import Loading from '../components/Loading';
-import { Store } from '../store/Store';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -25,10 +22,11 @@ const reducer = (state, action) => {
 
 const Homepage = () => {
 
-  const [{ products, loading, error }, dispatch] = useReducer(logger(reducer), {
+  const [{ products, loading, error }, dispatch] = useReducer((reducer), {
     products: [],
     loading: true,
     error: '',
+    manu:{},
   });
 
 
@@ -40,15 +38,20 @@ const Homepage = () => {
     } catch (error) {
       dispatch({ type: actions.FETCH_FAIL, payload: error.message })
     }
-
-
   }
+
+  // const test = () => {
+  //   const newArr = products.map(manu => manu.manufactor);
+  //   console.log(newArr + "test");
+  // }
+
+
 
   useEffect(() => {
     getData();
 
     return () => {
-
+   
     }
   }, [])
 
@@ -57,9 +60,20 @@ const Homepage = () => {
       <Helmet>
         <title>E-Guitars</title>
       </Helmet>
-      <h1>Featured Products</h1>
+      <h1 className=''>Featured Products</h1>
       <div className='products-list'>
         <Row>
+          <Col>
+            <div>
+              <div className='manufacturer-filter'>
+                <h2>Manufactor</h2>
+                {products.map(prod =>
+                (<div>
+                  <input type={'checkbox'} />
+                  <label className='manu-text'>{prod.manufactor}</label>
+                </div>))}
+              </div>
+            </div></Col>
           {loading ? <Loading></Loading> : error ? <div>{error.message}</div> :
             products.map(data => (
               <Col sm={6} md={3} key={data._id} >

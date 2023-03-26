@@ -35,3 +35,16 @@ main{
   font-size: 1.5rem;
   align-self: end;
 }
+
+.product-link{
+  color: white;
+}
+
+.product-link:hover{
+  color:blueviolet
+}
+
+.manu-text{
+  font-weight: 500;
+  margin-left: 10px;
+}

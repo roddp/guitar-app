@@ -25,8 +25,12 @@ const ProductCard = ({ item }) => {
       </Link>
       <Card.Body>
         <Card.Title>
-          <span className='item-manu'>{item.manufactor} </span>
-          <span className='item-model'>{item.model}</span>
+          <Link to={`/product/${item.slug}/${item._id}`} className='text-decoration-none'>
+            <div className='product-link'>
+              <span className='item-manu '>{item.manufactor} </span>
+              <span className='item-model'>{item.model}</span>
+            </div>
+          </Link>
         </Card.Title>
         <Card.Subtitle>{item.price}€</Card.Subtitle>
         <Card.Text>
